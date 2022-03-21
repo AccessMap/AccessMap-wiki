@@ -1,27 +1,33 @@
 # Developer Guide
 First, make sure you have React Native installed. If you have not yet set it up, please refer to the following: https://reactnative.dev/docs/environment-setup. After you have finished setting up, please look at the [TODO List](TODO.md) for action items to tackle. For more information on specific technical stuff, see the docs in the 'technical-docs' folder.
 
+## Requirements
+- Overall:
+  - React Native 0.67.1+
+  - Any IDE, such as Visual Studio Code
+- Android Development:  
+  - Android Studio Bumblebee+
+  - Java 11+
+- iOS Development:
+  - Xcode 13.3+ (can only be run on macOS)
+
 ## Project Setup
 1. Clone this repository
 2. Run `npm install` in the root directory to generate `node_modules`
-3. Create a `secrets.js` file in `src/containers/FeedbackForm`, which should declare the following Google Sheets info (please retrieve these from our Team Google Drive):
-    - spreadsheetId
-    - accountId
-    - accountName
-    - keyId
-    - key
+3. Set up credentials:
+   1. Create a `secrets.js` file in `src/constants`, which should declare the following: (Please retrieve these from our Team Google Drive) -> Google Spreadsheet Info (currently this links to Eric's personal Google Spreadsheet, should be taken out in the future): (`spreadsheetId, accountId, accountName, keyId, key`), and `postHogAPIKey`.
 
 ## Android Devices
-4. From the root directory, run `chmod 755 android/gradlew` (user can read/write/execute).
+1. From the root directory, run `chmod 755 android/gradlew` (read/write/execute).
     - Make sure the gradlew file has Unix format line endings (if using Mac). If not, run `dos2unix gradlew`.
     - Run `./gradlew clean` where gradlew is located.
-5. Open `android` in Android studio and let Gradle build, OR type `./gradlew build` while in the 'android' folder.
+2. Open `android` in Android Studio and let Gradle build, OR type `./gradlew build` while in the 'android' folder.
     - You may need to first open and run the emulator.
     - If you are having trouble running an Android emulator, please refer to this: https://developer.android.com/studio/run/emulator-troubleshooting 
-    - Tools > AVD Manager > Press the green triangle Play button next to your installed emulated device.
-6.  To run the app, run the following command in the **root directory**: `npx react-native run-android` or `npm run android`
-7.  If at any point you run into a message mentioning ./gradlew debug error or a server 500 error on the app relating to a dependency, follow the above steps again.
-8.  To do the above steps as a shortcut, run ./setup.sh in the home directory
+3.  To run the app, run the following command in the **root directory**: `npx react-native run-android` or `npm run android`
+    1.  In Android Studio: Tools > AVD Manager > Press the green triangle Play button next to your installed emulated device.
+4.  If at any point you run into a message mentioning ./gradlew debug error or a server 500 error on the app relating to a dependency, follow the above steps again.
+5.  To do the above steps as a shortcut, run ./setup.sh in the home directory
 
 ## iOS Devices
 Note: You will need to have Xcode to build for iOS, which means you need to run it on macOS. If you are on Windows, install a macOS virtual machine, see [this guide](https://blog.udemy.com/xcode-on-windows/).
@@ -29,7 +35,7 @@ Note: You will need to have Xcode to build for iOS, which means you need to run 
 1. Navigate to the ios directory.
 2. Run `pod install` to install dependencies from the Podfile. This will generate a 'Pods' directory.
 3. Navigate back to the **root directory** and run either `npx react-native run-ios` or `npm run ios`.
-    - If it complains about the Metro Bundler not running, run `npm start` or `react-native start` first.
+  - If it complains about the Metro Bundler not running, run `npm start` or `react-native start` first.
 
 ## Running the app on a specific device
 - Android: `react-native run-android --deviceId=DEVICE_ID`
@@ -38,6 +44,7 @@ Note: You will need to have Xcode to build for iOS, which means you need to run 
   - For simulator, attach simulator tag: `--simulator="iPhone SE (1st generation)"`
     - `xcrun simctl list devices` to see all installed simulators
   - For physical device, attach device tag, for example: `--device "Jay's iPhone"`
+- More details on Running On Device: https://reactnative.dev/docs/running-on-device 
 
 ## Link dependencies to native projects
 Some libraries have dependencies that need to be linked in the native code generated for React Native. If something doesn’t work after you installed a new library, run `react-native link [LIBRARY-NAME]`. See the [official docs](https://reactnative.dev/docs/linking-libraries-ios) for more details on linking.
